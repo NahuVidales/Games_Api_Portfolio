@@ -83,7 +83,7 @@ def specs(Año: int):
 
 #def earlyacces( Año: str ): Cantidad de juegos lanzados en un año con early access.
 
-@app.get('/earlyacces/{Año}')
+@app.get('/earlyacces/')
 def earlyacces(Año: int):
     earlyYear = []
     for i in range(len(steam['year'])):
@@ -133,6 +133,6 @@ def metascore(Año: int):
     # Get the top 5 metascore values
     top_metascore = steamMeta.nlargest(5, 'metascore')[['title', 'metascore']]
     
-    #return top_metascore
-    return 'soy nahu'
+    return top_metascore
+
 
