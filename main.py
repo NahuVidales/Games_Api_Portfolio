@@ -133,4 +133,6 @@ def metascore(Año: int):
     # Get the top 5 metascore values
     top_metascore = steamMeta.nlargest(5, 'metascore')[['title', 'metascore']]
     
-    return top_metascore
+    #return top_metascore
+    return 'soy nahu'
+
