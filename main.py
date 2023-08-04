@@ -89,7 +89,7 @@ def earlyacces(year: int):
     for i in range(len(steam['year'])):
         if steam['year'][i] == year:
             earlyYear.append(steam.iloc[i]['early_access'])
-    return print('In the', year, 'were released', earlyYear.count(True), 'games with early access')
+    return earlyYear.count(True)
 
 
 
