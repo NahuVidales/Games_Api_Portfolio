@@ -113,7 +113,7 @@ def sentiment(Año: int):
 
 
 #def metascore( Año: str ): Top 5 juegos según año con mayor metascore.
-
+@app.get('/metascore/{Año}')
 def metascore(Año: int):
     # Filter the DataFrame to get rows with the specified year
     steamYear = steam[steam['year'] == Año]
