@@ -30,11 +30,11 @@ async def root():
 
 
 #def genero( Año: str ): Se ingresa un año y devuelve una lista con los 5 géneros más usuales en el orden correspondiente.
-@app.get('/genero/{Año}')
-def genero(Año: int):
+@app.get('/genero/{year}')
+def genero(year: int):
     gamesYear = []
     for i in range(len(steam['year'])):
-        if steam['year'][i] == Año:
+        if steam['year'][i] == year:
             gamesYear.append(steam.iloc[i]['genres'])
     
     #evaluaremos cada genero y lo guardaremos en un diccionario
@@ -51,21 +51,21 @@ def genero(Año: int):
 
 
 #def juegos( Año: str ): Se ingresa un año y devuelve una lista con los juegos lanzados en el año.
-@app.get('/juegos/{Año}')
-def juegos( Año: int ):
+@app.get('/juegos/{year}')
+def juegos( year: int ):
     games_in_year = []
     for i in range(len(steam['year'])):
-        if steam['year'][i] == Año:
+        if steam['year'][i] == year:
             games_in_year.append(steam.iloc[i]['title'])
     return games_in_year
 
 
 #def specs( Año: str ): Se ingresa un año y devuelve una lista con los 5 specs que más se repiten en el mismo en el orden correspondiente.
-@app.get('/specs/{Año}')
-def specs(Año: int):
+@app.get('/specs/{year}')
+def specs(year: int):
     specsYear = []
     for i in range(len(steam['year'])):
-        if steam['year'][i] == Año:
+        if steam['year'][i] == year:
             specsYear.append(steam.iloc[i]['specs'])
     
     #evaluaremos cada genero y lo guardaremos en un diccionario
@@ -84,22 +84,22 @@ def specs(Año: int):
 #def earlyacces( Año: str ): Cantidad de juegos lanzados en un año con early access.
 
 @app.get('/earlyacces/')
-def earlyacces(Año: int):
+def earlyacces(year: int):
     earlyYear = []
     for i in range(len(steam['year'])):
-        if steam['year'][i] == Año:
+        if steam['year'][i] == year:
             earlyYear.append(steam.iloc[i]['early_access'])
-    return print('In the', Año, 'were released', earlyYear.count(True), 'games with early access')
+    return print('In the', year, 'were released', earlyYear.count(True), 'games with early access')
 
 
 
 
 #def sentiment( Año: str ): Según el año de lanzamiento, se devuelve una lista con la cantidad de registros que se encuentren categorizados con un análisis de sentimiento.
-@app.get('/sentiment/{Año}')
-def sentiment(Año: int):
+@app.get('/sentiment/{year}')
+def sentiment(year: int):
     sentimentYear = []
     for i in range(len(steam['year'])):
-        if steam['year'][i] == Año:
+        if steam['year'][i] == year:
             sentimentYear.append(steam.iloc[i]['sentiment'])
     
     #evaluaremos cada genero y lo guardaremos en un diccionario
@@ -113,10 +113,10 @@ def sentiment(Año: int):
 
 
 #def metascore( Año: str ): Top 5 juegos según año con mayor metascore.
-@app.get('/metascore/{Año}')
-def metascore(Año: int):
+@app.get('/metascore/{year}')
+def metascore(year: int):
     # Filter the DataFrame to get rows with the specified year
-    steamYear = steam[steam['year'] == Año]
+    steamYear = steam[steam['year'] == year]
     
     # Check if the DataFrame is empty
     if steamYear.empty:
