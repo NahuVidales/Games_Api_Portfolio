@@ -109,6 +109,7 @@ def sentiment(year: int):
             sentiment[sentimentYear[i]] += 1
         else:
             sentiment[sentimentYear[i]] = 1
+    sentiment = sorted(sentiment.items(), key=lambda x: x[1], reverse=True)
     return sentiment
 
 
