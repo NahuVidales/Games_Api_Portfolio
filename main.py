@@ -109,6 +109,10 @@ def sentiment(year: int):
             sentiment[sentimentYear[i]] += 1
         else:
             sentiment[sentimentYear[i]] = 1
+    #eliminamos los valores nan en sentiment
+    sentiment = {k: v for k, v in sentiment.items() if pd.notna(k)}
+    #eliminamos todos los lugares donde contiene 'users'
+    sentiment = {k: v for k, v in sentiment.items() if 'user' not in k}
     return sentiment
 
 
