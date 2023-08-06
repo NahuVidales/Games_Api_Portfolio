@@ -136,3 +136,10 @@ def metascore(year: int):
     return top_metascore
 
 
+#Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning,
+# y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine 
+# learning para armar un modelo de predicción. El mismo deberá basarse en características como Género, Año, Metascore y/o 
+# las que creas adecuadas. Tu líder pide que el modelo derive en un GET/POST en la API simil al siguiente formato:
+
+#def predicción( genero, earlyaccess = True/False, (Variables que elijas) ): Ingresando estos parámetros, deberíamos 
+# recibir el precio y RMSE
