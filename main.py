@@ -1,8 +1,11 @@
 from fastapi import FastAPI
-import pandas as pd
 import uvicorn
-import ast
-
+import pandas as pd
+import ast 
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+from typing import List
 
 app = FastAPI()
 
@@ -139,6 +142,41 @@ def metascore(year: int):
     
     return top_metascore
 
+# Crear una matriz TF-IDF para el texto del título de las películas
+stopwords_custom = ["the", "and", "in", "of"]  # Agrega aquí tus stopwords personalizados
+tfidf = TfidfVectorizer(stop_words=stopwords_custom)
+
+# Replace NaN values with empty string
+steam['title'] = steam['title'].fillna('')
+
+# Fit the TfidfVectorizer
+tfidf_matrix = tfidf.fit_transform(steam['title'])
+
+# Calcular la similitud del coseno entre los títulos de las películas
+cosine_similarities = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+def recomendacion(titulo):
+    # Verificar si el título está en el DataFrame
+    if titulo not in steam['title'].values:
+        return f"No se encontró ninguna película con el título '{titulo}'."
+
+    # Encontrar el índice de la película con el título dado
+    indices = pd.Series(steam.index, index=steam['title']).drop_duplicates()
+    idx = indices[titulo]
+
+    # Calcular las puntuaciones de similitud de todas las películas con la película dada
+    sim_scores = list(enumerate(cosine_similarities[idx]))
+
+    # Ordenar las películas por puntaje de similitud en orden descendente
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+    # Obtener los índices de las películas más similares (excluyendo la película dada)
+    sim_scores = sim_scores[1:6]  # Obtener las 5 películas más similares
+    movie_indices = [x[0] for x in sim_scores]
+
+    # Devolver los títulos de las películas más similares
+    respuesta_recomendacion = steam['title'].iloc[movie_indices].tolist()
+    return {'lista recomendada': respuesta_recomendacion}
 
 #Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning,
 # y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine 
