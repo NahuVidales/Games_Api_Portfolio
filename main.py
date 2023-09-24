@@ -155,6 +155,7 @@ tfidf_matrix = tfidf.fit_transform(steam['title'])
 # Calcular la similitud del coseno entre los títulos de las películas
 cosine_similarities = linear_kernel(tfidf_matrix, tfidf_matrix)
 
+@app.get('/recomendacion/{titulo}')
 def recomendacion(titulo):
     # Verificar si el título está en el DataFrame
     if titulo not in steam['title'].values:
