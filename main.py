@@ -162,7 +162,7 @@ def recomendacion(titulo):
         return f"No se encontró ninguna película con el título '{titulo}'."
 
     # Encontrar el índice de la película con el título dado
-    indices = pd.Series(steam.index, index=steam['title']).drop_duplicates()
+    indice = pd.Series(steam.index, index=steam['title']).drop_duplicates()
     idx = indices[titulo]
 
     # Calcular las puntuaciones de similitud de todas las películas con la película dada
